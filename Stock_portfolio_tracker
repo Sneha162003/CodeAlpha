@@ -1,0 +1,29 @@
+def stock_portfolio_tracker():
+    stock_prices = {"AAPL": 180, "TSLA": 250, "GOOG": 2800, "AMZN": 3500}
+    portfolio = {}
+    total_investment = 0
+
+    print("Enter your stock holdings (type 'done' to finish):")
+    while True:
+        stock = input("Enter stock symbol: ").upper()
+        if stock == 'DONE':
+            break
+        if stock not in stock_prices:
+            print("Stock not in dictionary!")
+            continue
+        quantity = int(input(f"Enter quantity for {stock}: "))
+        investment = stock_prices[stock] * quantity
+        portfolio[stock] = investment
+        total_investment += investment
+
+    print("\nYour Portfolio:")
+    for stock, investment in portfolio.items():
+        print(f"{stock}: ${investment}")
+    print(f"\nTotal Investment: ${total_investment}")
+
+    with open("portfolio.txt", "w") as file:
+        for stock, investment in portfolio.items():
+            file.write(f"{stock}: ${investment}\n")
+        file.write(f"\nTotal Investment: ${total_investment}")
+
+stock_portfolio_tracker()
